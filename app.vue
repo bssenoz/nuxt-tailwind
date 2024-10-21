@@ -34,31 +34,41 @@
         </div>
       </div>
 
-      <!-- Carousel Section -->
-      <div class="mt-8 p-8 bg-white rounded-lg shadow-md">
-        <h2 class="text-lg font-bold text-gray-800">Carousel</h2>
-        <div class="relative">
-          <div class="overflow-hidden">
-            <div class="flex transition-transform duration-500" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-              <div class="min-w-full">
-                <img src="https://via.placeholder.com/400x200?text=Slide+1" alt="Slide 1" class="w-full h-48 object-cover rounded-lg" />
-              </div>
-              <div class="min-w-full">
-                <img src="https://via.placeholder.com/400x200?text=Slide+2" alt="Slide 2" class="w-full h-48 object-cover rounded-lg" />
-              </div>
-              <div class="min-w-full">
-                <img src="https://via.placeholder.com/400x200?text=Slide+3" alt="Slide 3" class="w-full h-48 object-cover rounded-lg" />
-              </div>
-            </div>
+      <div class="flex items-start justify-center bg-gray-100 mt-4">
+    <div class="flex flex-col">
+      <!-- Accordion Section -->
+      <div class="mt-8 p-8 bg-white rounded-lg shadow-md w-96 h-72">
+        <h2 class="text-lg font-bold text-gray-800">Accordion Bileşeni</h2>
+
+        <div class="mt-4">
+          <button @click="toggleAccordion(0)" class="w-full text-left py-3 px-4 font-bold bg-blue-600 text-white rounded">
+            Accordion Başlık 1
+          </button>
+          <div v-if="activeAccordion === 0" class="p-4 bg-gray-100 rounded border border-gray-200 mt-2 overflow-y-auto h-32">
+            Accordion içeriği 1 burada.
           </div>
-          <button @click="prevSlide" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">
-            &#10094;
+        </div>
+
+        <div class="mt-4">
+          <button @click="toggleAccordion(1)" class="w-full text-left py-3 px-4 font-bold bg-blue-600 text-white rounded">
+            Accordion Başlık 2
           </button>
-          <button @click="nextSlide" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">
-            &#10095;
+          <div v-if="activeAccordion === 1" class="p-4 bg-gray-100 rounded border border-gray-200 mt-2 overflow-y-auto h-32">
+            Accordion içeriği 2 burada.
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <button @click="toggleAccordion(2)" class="w-full text-left py-3 px-4 font-bold bg-blue-600 text-white rounded">
+            Accordion Başlık 3
           </button>
+          <div v-if="activeAccordion === 2" class="p-4 bg-gray-100 rounded border border-gray-200 mt-2 overflow-y-auto h-32">
+            Accordion içeriği 3 burada.
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
       <!-- Form Section -->
       <div class="mt-8 p-8 bg-white rounded-lg shadow-md">
@@ -99,23 +109,19 @@ const showTooltip = ref(false);
 const dialogOpen = ref(false);
 const tab = ref(0);
 
-// Carousel state
-const currentIndex = ref(0);
 const name = ref('');
 const email = ref('');
-
-const nextSlide = () => {
-  currentIndex.value = (currentIndex.value + 1) % 3; // 3 slides
-};
-
-const prevSlide = () => {
-  currentIndex.value = (currentIndex.value - 1 + 3) % 3; // 3 slides
-};
 
 const submitForm = () => {
   alert(`Ad: ${name.value}, E-posta: ${email.value}`);
   name.value = '';
   email.value = '';
+};
+
+const activeAccordion = ref<number | null>(null);
+
+const toggleAccordion = (index: number) => {
+  activeAccordion.value = activeAccordion.value === index ? null : index;
 };
 </script>
 
